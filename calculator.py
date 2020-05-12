@@ -130,10 +130,22 @@ class Display(ttk.Frame):
                 self.value = algo
             else:
                 self.value += str(algo)
+        
+        if algo == 'C':
+            self.value = '0'
+
+        if algo == '+/-' and self.value != '0':
+            if self.value[0] == '-':
+                self.value = self.value[1:]
+            else:
+                self.value = '-' + self.value
+
+        if algo == ',' and ',' not in self.value:
+            self.value += str(algo)
+
         self.lbl.config(text=self.value)
 
-    
-
+        
 class Selector(ttk.Radiobutton):
     pass
 

@@ -116,6 +116,7 @@ class Controlator(ttk.Frame):
         self.op2 = 0
         self.operation = ''
         self.dispValue = '0'
+        self.signo_recien_pulsado = False
 
 
     def to_float(self, valor):
@@ -138,7 +139,9 @@ class Controlator(ttk.Frame):
 
     def set_operation(self, algo):
         if algo.isdigit():
-            if self.dispValue == "0":
+            if self.dispValue == "0" or self.signo_recien_pulsado:
+                self.op1 = self.to_float(self.dispValue)
+                self.op2 = 0
                 self.dispValue = algo
             else:
                 self.dispValue += str(algo)
@@ -156,14 +159,32 @@ class Controlator(ttk.Frame):
             self.dispValue += str(algo)
 
         if algo == '+' or algo == '-' or algo =='x' or algo =='÷':
-            self.op1 = self.to_float(self.dispValue)
-            self.operation = algo
-            self.dispValue = '0'
+            if self.op1 == 0:
+                self.op1 = self.to_float(self.dispValue)
+                self.operation = algo
+            elif self.op2 == 0:
+                self.op2 = self.to_float(self.dispValue)
+                res = self.calculate()
+                self.dispValue = self.to_str(res)
+                self.operation = algo
+            else: 
+                self.op1 = self.to_float(self.dispValue)
+                self.op2 = 0
+                self.operation = algo
+            self.signo_recien_pulsado = True
+        else:
+            self.signo_recien_pulsado = False
 
         if algo == '=':
-            self.op2 = self.to_float(self.dispValue)
-            res = self.calculate()
-            self.dispValue = self.to_str(res)
+            if self.op1 != 0 and self.op2 == 0:
+                self.op2 = self.to_float(self.dispValue)
+                res = self.calculate()
+                self.dispValue = self.to_str(res)
+
+            elif self.op1 !=0 and self.op2 != 0:
+                self.op1 = self.to_float(self.dispValue)
+                res = self.calculate()
+                self.dispValue = self.to_str(res)
 
 
         self.display.paint(self.dispValue)

@@ -111,6 +111,8 @@ class Controlator(ttk.Frame):
             btn = CalcButton(self, properties['text'], self.set_operation, properties.get("W", 1), properties.get("H", 1))
             btn.grid(column=properties['col'], row=properties['row'], columnspan=properties.get("W", 1), rowspan=properties.get("H", 1))
 
+
+
     def reset(self):
         self.op1 = None
         self.op2 = None

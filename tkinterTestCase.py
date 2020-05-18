@@ -3,12 +3,12 @@ from tkinter import *
 
 class TkTestCase(unittest.TestCase):
     @classmethod
-    def SetUpClass(cls):
+    def setUpClass(cls):
         cls.root = Tk()
-        cls.wait_visibility()
+        cls.root.wait_visibility()
 
     @classmethod
-    def TearDownClass(cls):
+    def tearDownClass(cls):
         cls.root.update()
         cls.root.destroy()
 

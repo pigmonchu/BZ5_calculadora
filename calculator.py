@@ -211,8 +211,18 @@ class Display(ttk.Frame):
         self.lbl.config(text=algo)
 
         
-class Selector(ttk.Radiobutton):
-    pass
+class Selector(ttk.Frame):
+    def __init__(self, parent, status="N"):
+        ttk.Frame.__init__(self, parent, width=68, height=50)
+        self.status = status
+
+
+        radiob1 = ttk.Radiobutton(self, text="N", value="N", name="rbtn_normal", variable=self.status)
+        radiob1.place(x=0, y=5)
+        radiob2 = ttk.Radiobutton(self, text="R", value="R", name="rbtn_romano", variable=self.status)
+        radiob2.place(x=0, y=30)
+
+
 
 class CalcButton(ttk.Frame):
     def __init__(self, parent, value, command, width=1, height=1):

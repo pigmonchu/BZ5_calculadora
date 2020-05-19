@@ -96,7 +96,76 @@ normal_buttons = [
     }
 ]
 
-roman_buttons = [{}]
+roman_buttons = [
+    {
+        "text": "=",
+        "col": 0,
+        "row": 5,
+        "W": 4
+    },
+    {
+        "text": "I",
+        "col": 0,
+        "row": 4,
+    },
+    {
+        "text": "V",
+        "col": 1,
+        "row": 4,
+    },
+    {
+        "text": "X",
+        "col": 0,
+        "row": 3,
+    },
+    {
+        "text": "L",
+        "col": 1,
+        "row": 3,
+    },
+    {
+        "text": "C",
+        "col": 0,
+        "row": 2,
+    },
+    {
+        "text": "D",
+        "col": 1,
+        "row": 2,
+    },
+    {
+        "text": "M",
+        "col": 2,
+        "row": 2,
+        "H": 3
+    },
+    {
+        "text": "AC",
+        "col": 1,
+        "row": 1,
+        "W": 2
+    },
+    {
+        "text": "÷",
+        "col": 3,
+        "row": 1,
+    },
+    {
+        "text": "x",
+        "col": 3,
+        "row": 2,
+    },
+    {
+        "text": "-",
+        "col": 3,
+        "row": 3,
+    },
+    {
+        "text": "+",
+        "col": 3,
+        "row": 4,
+    }
+]
 
 def pinta(valor):
     print(valor)
@@ -233,6 +302,7 @@ class Selector(ttk.Frame):
 class Keyboard(ttk.Frame):
     def __init__(self, parent, status="N"):
         ttk.Frame.__init__(self, parent, height=250, width=272)
+        self.status = status
         
         if status == "N":
             dbuttons = normal_buttons

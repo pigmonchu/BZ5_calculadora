@@ -24,11 +24,17 @@ class TestKeyboard(tkinterTestCase.TkTestCase):
 
     def test_render_roman_Ok(self):
         teclado_romano = calculator.Keyboard(self.root, "R")
-        self.assertEqual(self.k.winfo_height(),250)
-        self.assertEqual(self.k.winfo_width(), 272)
-        for btn in self.k.children.values():
+        teclado_romano.pack()
+        teclado_romano.wait_visibility()
+
+        self.assertEqual(teclado_romano.winfo_height(),250)
+        self.assertEqual(teclado_romano.winfo_width(), 272)
+        for btn in teclado_romano.children.values():
             self.assertIsInstance(btn, calculator.CalcButton)
-        self.assertEqual(len(self.k.children), 13)
+        self.assertEqual(len(teclado_romano.children), 13)
+        
+        teclado_romano.update()
+        teclado_romano.destroy()
 
 
 if __name__ == '__main__':

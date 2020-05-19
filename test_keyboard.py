@@ -36,6 +36,14 @@ class TestKeyboard(tkinterTestCase.TkTestCase):
         teclado_romano.update()
         teclado_romano.destroy()
 
+    def test_change_status_keyboard(self):
+        self.assertEqual(self.k.status, 'N')
+        self.k.status = "R"
+        for btn in self.k.children.values():
+            self.assertIsInstance(btn, calculator.CalcButton)
+        self.assertEqual(len(self.k.children), 13)
+        self.assertEqual(self.k.status, 'R')
+
 
 if __name__ == '__main__':
     unittest.main()

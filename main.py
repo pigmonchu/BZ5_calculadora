@@ -14,11 +14,11 @@ class MainApp(Tk):
         c.pack(side=TOP, fill=BOTH)
 
 
-    def start(self):
+    def main(self):
         self.mainloop()
 
 
 if __name__ == '__main__':
     app = MainApp()
-    app.start()
+    app.main()
 

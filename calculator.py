@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 
 
-dbuttons = [
+normal_buttons = [
     {
         "text": "1",
         "col": 0,
@@ -95,6 +95,8 @@ dbuttons = [
         "row": 5,
     }
 ]
+
+roman_buttons = [{}]
 
 def pinta(valor):
     print(valor)
@@ -219,7 +221,6 @@ class Selector(ttk.Frame):
         self.__value = StringVar()
         self.__value.set(self.status)
 
-
         radiob1 = ttk.Radiobutton(self, text="N", value="N", name="rbtn_normal", variable=self.__value, command=self.__click)
         radiob1.place(x=0, y=5)
         radiob2 = ttk.Radiobutton(self, text="R", value="R", name="rbtn_romano", variable=self.__value, command=self.__click)
@@ -227,6 +228,20 @@ class Selector(ttk.Frame):
 
     def __click(self):
         self.status = self.__value.get()
+
+
+class Keyboard(ttk.Frame):
+    def __init__(self, parent, status="N"):
+        ttk.Frame.__init__(self, parent, height=250, width=272)
+        
+        if status == "N":
+            dbuttons = normal_buttons
+        else:
+            dbuttons = roman_buttons
+
+        for properties in dbuttons:
+            btn = CalcButton(self, properties['text'], None, properties.get("W", 1), properties.get("H", 1))
+            btn.grid(column=properties['col'], row=properties['row'], columnspan=properties.get("W", 1), rowspan=properties.get("H", 1))
 
 
 class CalcButton(ttk.Frame):

@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from cromanos import RomanNumber
 
 
 normal_buttons = [
@@ -212,10 +213,19 @@ class Controlator(ttk.Frame):
         return self.op2
 
     def set_operation(self, algo):
+
         if self.status == "R":
-            print("Funcionalidad Romana en desarrollo")
-            return
-        if algo.isdigit():
+            self.set_operation_R(algo)
+        else:
+            self.set_operation_N(algo)
+            
+        self.display.paint(self.dispValue)
+
+    def set_operation_R(self, algo):
+        print("En desarrollo")
+
+    def set_operation_N(self, algo):
+        if algo.isdigit(): #Comprobar si algo esta en (IVXLCDM) y comprobar si el número romano está bien formateado. Cambiar dispValue
             if self.dispValue == "0" or self.signo_recien_pulsado:
                 self.op1 = self.to_float(self.dispValue)
                 self.op2 = None
@@ -223,29 +233,29 @@ class Controlator(ttk.Frame):
             else:
                 self.dispValue += str(algo)
         
-        if algo == 'C':
+        if algo == 'C': #y es arábigo si no sera 'AC'
             self.reset()
 
-        if algo == '+/-' and self.dispValue != '0':
+        if algo == '+/-' and self.dispValue != '0': #No funciona en romano
             if self.dispValue[0] == '-':
                 self.dispValue = self.dispValue[1:]
             else:
                 self.dispValue = '-' + self.dispValue
 
-        if algo == ',' and ',' not in self.dispValue:
+        if algo == ',' and ',' not in self.dispValue: #No funciona en romano
             self.dispValue += str(algo)
 
         if algo == '+' or algo == '-' or algo =='x' or algo =='÷':
             if not self.op1:
-                self.op1 = self.to_float(self.dispValue)
+                self.op1 = self.to_float(self.dispValue) #pasar a RomanNumber si status es R
                 self.operation = algo
             elif not self.op2:
-                self.op2 = self.to_float(self.dispValue)
+                self.op2 = self.to_float(self.dispValue) #pasar a RomanNumber si status es R
                 res = self.calculate()
                 self.dispValue = self.to_str(res)
                 self.operation = algo
             else: 
-                self.op1 = self.to_float(self.dispValue)
+                self.op1 = self.to_float(self.dispValue) #pasar a RomanNumber si status es R
                 self.op2 = None
                 self.operation = algo
             self.signo_recien_pulsado = True
@@ -264,7 +274,6 @@ class Controlator(ttk.Frame):
                 self.dispValue = self.to_str(res)
 
 
-        self.display.paint(self.dispValue)
 
     def change_status(self, status):
         self.status = status
